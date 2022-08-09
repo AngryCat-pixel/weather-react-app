@@ -1,23 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from "react";
+import AppRouter from "./app/router/app-router";
+import Theme from "./app/theme/theme.component";
+import { authorization } from "./features/auth/authSlice";
+import { useDispatch } from "react-redux";
 
 function App() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("session"));
+    if (user) {
+      dispatch(authorization(user));
+    }
+  }, []);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Theme>
+        <AppRouter />
+      </Theme>
     </div>
   );
 }

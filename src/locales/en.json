@@ -1,0 +1,35 @@
+{
+  "user": {
+    "name": "Name",
+    "lastName": "Last Name"
+  },
+  "auth": {
+    "registration": "Sign up",
+    "name": "First Name",
+    "lastName": "Last Name",
+    "email": "Email Address",
+    "telephone": "Telephone Number",
+    "password": "Password",
+    "registrBtn": "Sign Up",
+    "login": "Already have an account? Sign in",
+    "signIn": "Sign In",
+    "signUp": "Don't have an account? Sign Up",
+    "fogotPass": "Forgot password?",
+    "loginBtn": "Sign In",
+    "incorrectlogin": "The password or email was entered incorrectly.",
+    "incorrectregister": "A user with this email address already exists."
+  },
+  "profile": {
+    "back": "Back",
+    "title": "Profile",
+    "name": "First Name:",
+    "lastName": "Last Name:",
+    "email": "Email Address:",
+    "telephone": "Telephone Number:",
+    "password": "Password:",
+    "likeSiti": "Saved cities",
+    "logout": "Logout",
+    "lableTheme": "Theme",
+    "lableMetrics": "Metric system"
+  }
+}

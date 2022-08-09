@@ -1,0 +1,35 @@
+{
+  "user": {
+    "name": "Ім'я",
+    "lastName": "Фамілія"
+  },
+  "auth": {
+    "registration": "Реєстрація",
+    "name": "Ім'я",
+    "lastNames": "Фамілія",
+    "email": "Пошта",
+    "telephone": "Номер телефону",
+    "password": "Пароль",
+    "registrBtn": "Зареєструватись",
+    "login": "Вже є аккаунт? Увійти",
+    "signIn": "Вхід",
+    "loginBtn": "Увійти",
+    "signUp": "Немає облікового запису? Зареєструватися",
+    "fogotPass": "Забули пароль?",
+    "incorrectlogin": "Пароль або емейл неправильно введені.",
+    "incorrectregister": "Користувач з таким емейлом вже існує."
+  },
+  "profile": {
+    "back": "Назад",
+    "title": "Профіль",
+    "name": "Ім'я:",
+    "lastName": "Фамілія:",
+    "email": "Пошта:",
+    "telephone": "Номер телефону:",
+    "password": "Пароль:",
+    "likeSiti": "Збережені міста",
+    "logout": "Вийти",
+    "lableTheme": "Тема",
+    "lableMetrics": "Метрична система"
+  }
+}
