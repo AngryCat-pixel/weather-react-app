@@ -9,11 +9,14 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { useTranslation } from "react-i18next";
 import classes from "./login.module.css";
-import { findUserByEmail } from "../../../utils/findUserByEmail";
+import { findUserByEmail } from "../utils/findUserByEmail";
 import { useDispatch } from "react-redux";
 import { selectAuth, authorization } from "../authSlice";
 import { useSelector } from "react-redux";
-import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { inicializeSettings } from "../../profile/settingsSlice";
+import { findSettingsByUserId } from "../../profile/utils";
+import { createSession } from "../utils/createSession";
 
 function Copyright(props) {
   return (
@@ -29,7 +32,6 @@ function Copyright(props) {
 export const Login = () => {
   const dispatch = useDispatch();
   const auth = useSelector(selectAuth);
-  const authState = useSelector((state) => state.auth);
   const navigate = useNavigate();
   let location = useLocation();
   useEffect(() => {
@@ -37,7 +39,7 @@ export const Login = () => {
       let from = location.state?.from?.pathname || "/";
       navigate(from, { replace: true });
     }
-  }, [auth, authState]);
+  }, [auth]);
 
   const { t } = useTranslation("auth");
 
@@ -65,26 +67,24 @@ export const Login = () => {
     // checkUserAlready
     const foundUser = findUserByEmail(user.email);
     if (!foundUser) {
-      // отобразить сообщение о том что юзер уже зарегистрирован
+      // отобразить сообщение о том что юзер не найден
       setErrors({ email: { error: true, msg: t("incorrectlogin") } });
       return;
     } else if (foundUser.password !== user.password) {
+      // отобразить сообщение о том что пароль не верный
       setErrors({ email: { error: true, msg: t("incorrectlogin") } });
       return;
     }
-    createSession(foundUser);
+    // находит настройки пользователя в localstorage
+    const foundSettings = findSettingsByUserId(user.id);
+    // создает сессию пользователя в localstorage
+    createSession(foundUser.id);
+    // авторизует пользователя в приложении
     dispatch(authorization(foundUser));
+    dispatch(inicializeSettings(foundSettings));
+    // перенаправляет на главную страницу
+    navigate("/");
   };
-
-  const createSession = (user) => {
-    localStorage.setItem("session", JSON.stringify(user));
-    return;
-  };
-
-  // useEffect(() => {
-  //   setError(true);
-  //   setErrorMsg("Bika");
-  // },[])
 
   return (
     <Container component="main" maxWidth="xs">

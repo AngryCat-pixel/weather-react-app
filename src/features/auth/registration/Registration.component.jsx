@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
@@ -8,16 +8,30 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { useTranslation } from "react-i18next";
-import { createTheme } from "@mui/material/styles";
-import cl from "./registration.module.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { authorization } from "./../authSlice";
-import { findUserByEmail } from "../../../utils/findUserByEmail";
-
-const theme = createTheme();
+import { findUserByEmail } from "../utils/findUserByEmail";
+import { useNavigate } from "react-router-dom";
+import { v4 as uuid } from "uuid";
+import { saveSettings } from "../../profile/utils";
+import {
+  selectSettings,
+  inicializeSettings,
+  defaultSettings,
+} from "../../profile/settingsSlice";
+import { createSession, saveUser, serializeEmail } from "../utils";
 
 export const Registration = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const settings = useSelector(selectSettings);
+
+  useEffect(() => {
+    if (settings["userId"]) {
+      saveSettings(settings);
+      navigate("/");
+    }
+  }, [settings]);
 
   const { t } = useTranslation("auth");
   const noErrors = {
@@ -39,32 +53,26 @@ export const Registration = () => {
       verificationCode: "0000",
       virificated: false,
     };
-    user.email = user.email.toLowerCase();
-    user.email = `${user.email.match(/.*\@/)[0].replace(/\./g, "")}${
-      user.email.match(/\@(.*)/)[1]
-    }`;
+    user.email = serializeEmail(user.email);
     // validate
     // checkUserAlready
     if (findUserByEmail(user.email)) {
       setErrors({ email: { error: true, msg: t("incorrectregister") } });
       return;
     }
-    // save
+
+    // генерирует уникальный идентификатор
+    user.id = uuid();
+    // сохраняет пользователя и настройки в localstore
     saveUser(user);
-    // update global
+    saveSettings({ ...defaultSettings, userId: user.id });
+    // добавляет в глобальный стор пользователя и настройки
     dispatch(authorization(user));
-  };
-
-  const saveUser = (user) => {
-    let users = localStorage.getItem("users");
-    if (!users) {
-      users = [];
-    } else {
-      users = JSON.parse(users);
-    }
-
-    users.push(user);
-    localStorage.setItem("users", JSON.stringify(users));
+    dispatch(inicializeSettings({ userId: user.id }));
+    // создает сессию в localstore
+    createSession(user.id);
+    // перенаправляет на главную страницу
+    navigate("/");
   };
 
   return (
@@ -95,7 +103,8 @@ export const Registration = () => {
                 autoFocus
                 type="text"
                 inputProps={{
-                  pattern: "[A-z]{2,20}",
+                  pattern: "[A-zА-ЩЬЮЯҐЄІЇа-щьюяґєії]{2,20}",
+                  title: t("codeFormatError"),
                 }}
               />
             </Grid>
@@ -110,7 +119,8 @@ export const Registration = () => {
                 name="lastName"
                 autoComplete="family-name"
                 inputProps={{
-                  pattern: "[A-z]{2,20}",
+                  pattern: "[A-zА-ЩЬЮЯҐЄІЇа-щьюяґєії]{2,20}",
+                  title: t("codeFormatError"),
                 }}
               />
             </Grid>
@@ -139,6 +149,7 @@ export const Registration = () => {
                 autoComplete="telephone"
                 inputProps={{
                   pattern: "[+]{0,1}[0-9]{7,12}",
+                  title: t("codeTelephoneError"),
                 }}
               />
             </Grid>

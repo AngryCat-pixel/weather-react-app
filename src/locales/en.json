@@ -17,7 +17,16 @@
     "fogotPass": "Forgot password?",
     "loginBtn": "Sign In",
     "incorrectlogin": "The password or email was entered incorrectly.",
-    "incorrectregister": "A user with this email address already exists."
+    "incorrectregister": "A user with this email address already exists.",
+    "confirm": "Enter the secret code sent to your email: {{email}} to activate your account.",
+    "confirmBtn": "Activate",
+    "changeEmail": "Change email",
+    "changeEmailTitle": "Enter your email",
+    "changeEmailBtn": "Change",
+    "incorrectCode": "The secret code you entered is incorrect.",
+    "codeLengthError": "The code must be 4 characters long.",
+    "codeFormatError": "The field must have from 2 to 20 characters (only letters in Ukrainian and English)",
+    "codeTelephoneError": "The field must contain 7 to 12 digits"
   },
   "profile": {
     "back": "Back",
@@ -31,5 +40,9 @@
     "logout": "Logout",
     "lableTheme": "Theme",
     "lableMetrics": "Metric system"
+  },
+  "weather": {
+    "searchInput": "Enter city",
+    "likesSitiTitle": "Saved cities"
   }
 }

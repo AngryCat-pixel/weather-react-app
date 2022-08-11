@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "@mui/material/Button";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import Container from "@mui/material/Container";
@@ -18,8 +18,17 @@ import CelsiusIco from "./img/any/celsius.png";
 import FahrenheitIco from "./img/any/fahrenheit.png";
 import DarkIco from "./img/any/dark.png";
 import LightIco from "./img/any/light.png";
+import { useSelector, useDispatch } from "react-redux";
+import { selectUser, updateUserData } from "../auth/authSlice";
+import { selectSettings, inicializeSettings } from "./settingsSlice";
+import { createSession, saveUser } from "../auth/utils";
+import { saveSettings } from "./utils";
+import { updateUserDataEverywhere } from "../auth/utils";
 
 const Profile = () => {
+  const { t } = useTranslation("profile");
+  const dispatch = useDispatch();
+
   const styleForm = {
     display: "flex",
     flexDirection: "row",
@@ -34,8 +43,56 @@ const Profile = () => {
     fontWeight: "bold",
     color: "#006bf5",
   };
+  const settings = useSelector(selectSettings);
+  const [newSettings, setNewSettings] = useState(settings);
+  const user = useSelector(selectUser);
+  const [newUser, setNewUser] = useState(user);
 
-  const { t } = useTranslation("profile");
+  const handleUpdateUser = (event) => {
+    if (event.target.name === "email") {
+      setNewUser({
+        ...newUser,
+        [event.target.name]: event.target.value,
+        virificated: false,
+      });
+      updateUserDataEverywhere(
+        dispatch,
+        {
+          ...newUser,
+          [event.target.name]: event.target.value,
+          virificated: false,
+        },
+        { ...settings }
+      );
+    } else {
+      setNewUser({ ...newUser, [event.target.name]: event.target.value });
+      updateUserDataEverywhere(
+        dispatch,
+        { ...newUser, [event.target.name]: event.target.value },
+        { ...settings }
+      );
+    }
+  };
+
+  const handleUpdateSetting = (event) => {
+    const name = event.target.name;
+    let value = false;
+    if (name === "theme") {
+      value = newSettings.theme === "light" ? "dark" : "light";
+    } else if (name === "metricSystem") {
+      value = newSettings.metricSystem === "celsius" ? "fahrenheit" : "celsius";
+    }
+    if (!value || !name) {
+      return;
+    }
+    setNewSettings({ ...newSettings, [name]: value });
+    // сохранение в localStorage
+    saveSettings({ ...newSettings, [name]: value });
+    // сохранение в глобальный стейт
+    dispatch(inicializeSettings({ ...newSettings, [name]: value }));
+    // обновление сессии
+    createSession(newUser.id);
+  };
 
   const ThemeUISwitch = styled(Switch)(({ theme }) => ({
     width: 62,
@@ -196,6 +253,9 @@ const Profile = () => {
                   color="primary"
                   id="name-input"
                   focused
+                  value={newUser.name}
+                  name="name"
+                  onChange={handleUpdateUser}
                   sx={{
                     width: "330px",
                   }}
@@ -215,6 +275,9 @@ const Profile = () => {
                   color="primary"
                   id="lastName-input"
                   focused
+                  value={newUser.lastName}
+                  name="lastName"
+                  onChange={handleUpdateUser}
                   sx={{
                     width: "330px",
                   }}
@@ -228,6 +291,9 @@ const Profile = () => {
                   variant="filled"
                   color="primary"
                   id="email-input"
+                  value={newUser.email}
+                  name="email"
+                  onChange={handleUpdateUser}
                   focused
                   sx={{
                     width: "330px",
@@ -243,6 +309,9 @@ const Profile = () => {
                   color="primary"
                   id="telephone-input"
                   focused
+                  value={newUser.phone}
+                  name="phone"
+                  onChange={handleUpdateUser}
                   sx={{
                     width: "330px",
                   }}
@@ -256,6 +325,9 @@ const Profile = () => {
                   variant="filled"
                   color="primary"
                   id="password-input"
+                  value={newUser.password}
+                  name="password"
+                  onChange={handleUpdateUser}
                   focused
                   sx={{
                     width: "330px",
@@ -290,10 +362,26 @@ const Profile = () => {
               >
                 <FormControlLabel
                   label={t("lableTheme")}
-                  control={<ThemeUISwitch sx={{ m: 1 }} defaultChecked />}
+                  control={
+                    <ThemeUISwitch
+                      name="theme"
+                      onChange={handleUpdateSetting}
+                      sx={{ m: 1 }}
+                      checked={newSettings.theme === "dark" ? true : false}
+                    />
+                  }
                 />
                 <FormControlLabel
-                  control={<MetricsUiSwitch sx={{ m: 1 }} defaultChecked />}
+                  control={
+                    <MetricsUiSwitch
+                      name="metricSystem"
+                      onChange={handleUpdateSetting}
+                      sx={{ m: 1 }}
+                      checked={
+                        newSettings.metricSystem === "fahrenheit" ? true : false
+                      }
+                    />
+                  }
                   label={t("lableMetrics")}
                 />
               </Box>

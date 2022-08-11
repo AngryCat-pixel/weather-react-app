@@ -2,7 +2,8 @@ import React from "react";
 import Registration from "../../pages/RegistrationPage";
 import Login from "../../pages/LoginPage";
 import Profile from "../../pages/ProfilePage";
-import { Weather } from "../../pages/Weather";
+import Confirm from "../../pages/ConfirmPage";
+import Weather from "../../pages/WeatherPage";
 import { ProtectRoute } from "./protectRoute";
 
 export const Routenames = {
@@ -10,6 +11,7 @@ export const Routenames = {
   REGISTRATION: "/registration",
   LOGIN: "/login",
   PROFILE: "/profile",
+  CONFIRM: "/confirm",
   ANY: "*",
 };
 
@@ -23,8 +25,20 @@ export const routes = [
     element: <Login />,
   },
   {
+    path: Routenames.CONFIRM,
+    element: (
+      <ProtectRoute>
+        <Confirm />
+      </ProtectRoute>
+    ),
+  },
+  {
     path: Routenames.PROFILE,
-    element: <Profile />,
+    element: (
+      <ProtectRoute>
+        <Profile />
+      </ProtectRoute>
+    ),
   },
   {
     path: Routenames.ANY,
