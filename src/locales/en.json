@@ -3,6 +3,9 @@
     "name": "Name",
     "lastName": "Last Name"
   },
+  "errors": {
+    "unknown": "An unexpected error has occurred. Details in the console."
+},
   "auth": {
     "registration": "Sign up",
     "name": "First Name",

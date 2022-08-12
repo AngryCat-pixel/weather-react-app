@@ -1,25 +1,22 @@
-import React, { useEffect, useState } from "react";
-import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
-import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
-import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
-import { authorization } from "./../authSlice";
-import { findUserByEmail } from "../utils/findUserByEmail";
-import { useNavigate } from "react-router-dom";
-import { v4 as uuid } from "uuid";
-import { saveSettings } from "../../profile/utils";
-import {
-  selectSettings,
-  inicializeSettings,
-  defaultSettings,
-} from "../../profile/settingsSlice";
-import { createSession, saveUser, serializeEmail } from "../utils";
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Container from '@mui/material/Container';
+import CssBaseline from '@mui/material/CssBaseline';
+import Grid from '@mui/material/Grid';
+import Link from '@mui/material/Link';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
+import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { v4 as uuid } from 'uuid';
+
+import { defaultSettings, inicializeSettings, selectSettings } from '../../profile/settingsSlice';
+import { saveSettings } from '../../profile/utils';
+import { createSession, saveUser, serializeEmail } from '../utils';
+import { findUserByEmail } from '../utils/findUserByEmail';
+import { authorization } from './../authSlice';
 
 export const Registration = () => {
   const navigate = useNavigate();
@@ -31,7 +28,7 @@ export const Registration = () => {
       saveSettings(settings);
       navigate("/");
     }
-  }, [settings]);
+  }, [settings, navigate]);
 
   const { t } = useTranslation("auth");
   const noErrors = {

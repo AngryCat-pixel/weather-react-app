@@ -1,6 +1,7 @@
-import { selectVirificated, selectAuth } from '../../features/auth/authSlice';
 import { useSelector } from 'react-redux';
 import { Navigate, useLocation } from 'react-router-dom';
+
+import { selectAuth, selectVirificated } from '../../features/auth/authSlice';
 
 export function ProtectRoute({ children }) {
     const verified = useSelector(selectVirificated);

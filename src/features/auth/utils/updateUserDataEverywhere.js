@@ -1,5 +1,5 @@
+import { saveUser } from '.';
 import { updateUserData } from '../authSlice';
-import { createSession, saveUser } from '.';
 
 export const updateUserDataEverywhere = (dispatch, user) => {
     // сохранение в localStorage

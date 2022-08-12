@@ -1,5 +1,6 @@
-import { Route, Routes, useLocation } from "react-router-dom";
-import { routes } from "./index";
+import { Route, Routes } from 'react-router-dom';
+
+import { routes } from '.';
 
 const AppRouter = () => {
   return (

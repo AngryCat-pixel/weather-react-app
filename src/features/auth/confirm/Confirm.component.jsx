@@ -1,19 +1,20 @@
-import React, { useState, useRef } from 'react';
+import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Container from '@mui/material/Container';
+import CssBaseline from '@mui/material/CssBaseline';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import TextField from '@mui/material/TextField';
-import CssBaseline from '@mui/material/CssBaseline';
-import Container from '@mui/material/Container';
-import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
-import Box from '@mui/material/Box';
+import React, { useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import Button from '@mui/material/Button';
-import { useSelector, useDispatch } from 'react-redux';
-import { updateUserData, selectUser } from './../authSlice';
-import { selectSettings } from '../../profile/settingsSlice';
-import { createSession, saveUser, serializeEmail, updateUserDataEverywhere } from '../utils';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+
+import { selectSettings } from '../../profile/settingsSlice';
+import { serializeEmail, updateUserDataEverywhere } from '../utils';
 import { findUserByEmail } from '../utils/findUserByEmail';
+import { selectUser } from './../authSlice';
 
 export const Confirm = () => {
     const navigate = useNavigate();
@@ -81,7 +82,6 @@ export const Confirm = () => {
     const showEmailFormHandler = () => {
         setShowEmail(true);
         codeRef.current.value = '';
-        // console.log(emailRef.current)
     };
 
     return (

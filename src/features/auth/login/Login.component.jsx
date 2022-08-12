@@ -1,33 +1,21 @@
-import React, { useEffect, useState, useRef } from "react";
-import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
-import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
+import CssBaseline from "@mui/material/CssBaseline";
+import Grid from "@mui/material/Grid";
+import Link from "@mui/material/Link";
+import TextField from "@mui/material/TextField";
+import Typography from "@mui/material/Typography";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import classes from "./login.module.css";
-import { findUserByEmail } from "../utils/findUserByEmail";
-import { useDispatch } from "react-redux";
-import { selectAuth, authorization } from "../authSlice";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
+
 import { inicializeSettings } from "../../profile/settingsSlice";
 import { findSettingsByUserId } from "../../profile/utils";
+import { authorization, selectAuth } from "../authSlice";
 import { createSession } from "../utils/createSession";
-
-function Copyright(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    ></Typography>
-  );
-}
+import { findUserByEmail } from "../utils/findUserByEmail";
 
 export const Login = () => {
   const dispatch = useDispatch();
@@ -39,7 +27,7 @@ export const Login = () => {
       let from = location.state?.from?.pathname || "/";
       navigate(from, { replace: true });
     }
-  }, [auth]);
+  }, [auth, navigate, location]);
 
   const { t } = useTranslation("auth");
 
@@ -60,8 +48,8 @@ export const Login = () => {
       password: data.get("password"),
     };
     user.email = user.email.toLowerCase();
-    user.email = `${user.email.match(/.*\@/)[0].replace(/\./g, "")}${
-      user.email.match(/\@(.*)/)[1]
+    user.email = `${user.email.match(/.*@/)[0].replace(/\./g, "")}${
+      user.email.match(/@(.*)/)[1]
     }`;
     // validate
     // checkUserAlready

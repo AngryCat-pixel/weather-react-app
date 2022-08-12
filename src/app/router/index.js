@@ -1,10 +1,11 @@
-import React from "react";
-import Registration from "../../pages/RegistrationPage";
-import Login from "../../pages/LoginPage";
-import Profile from "../../pages/ProfilePage";
-import Confirm from "../../pages/ConfirmPage";
-import Weather from "../../pages/WeatherPage";
-import { ProtectRoute } from "./protectRoute";
+import React from 'react';
+
+import Confirm from '../../pages/ConfirmPage';
+import Login from '../../pages/LoginPage';
+import Profile from '../../pages/ProfilePage';
+import Registration from '../../pages/RegistrationPage';
+import Weather from '../../pages/WeatherPage';
+import { ProtectRoute } from './protectRoute';
 
 export const Routenames = {
   WEATHER: "/",
