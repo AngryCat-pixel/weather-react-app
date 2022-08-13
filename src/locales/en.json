@@ -5,7 +5,7 @@
   },
   "errors": {
     "unknown": "An unexpected error has occurred. Details in the console."
-},
+  },
   "auth": {
     "registration": "Sign up",
     "name": "First Name",
@@ -46,6 +46,8 @@
   },
   "weather": {
     "searchInput": "Enter city",
-    "likesSitiTitle": "Saved cities"
+    "likesSitiTitle": "Saved cities",
+    "noOptions": "City not found",
+    "saveEvents": "Saved sports events"
   }
 }

@@ -46,6 +46,8 @@
     },
     "weather": {
         "searchInput": "Введіть місто",
-        "likesSitiTitle": "Збережені міста"
+        "likesSitiTitle": "Збережені міста",
+        "noOptions": "Місто не знайдено",
+        "saveEvents": "Збережені спортивні події"
     }
 }

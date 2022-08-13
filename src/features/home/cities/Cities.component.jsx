@@ -1,7 +1,5 @@
 import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
-import Autocomplete from "@mui/material/Autocomplete";
 import Box from "@mui/material/Box";
-import Container from "@mui/material/Container";
 import CssBaseline from "@mui/material/CssBaseline";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
@@ -9,16 +7,17 @@ import Link from "@mui/material/Link";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
-import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 
 import useDebounce from "../../../hooks/useDebounce";
-import { weatherAPI } from "../weatherAPI";
+import { weatherAPI } from "../../weather/weatherAPI";
 
 export const Cities = () => {
   const { t } = useTranslation(["weather", "errors"]);
+  const navigate = useNavigate();
   const [searchValue, setSearchValue] = useState("");
   const debouncedSearchValue = useDebounce(searchValue, 1000);
   const {
@@ -39,12 +38,13 @@ export const Cities = () => {
 
   const selectHandler = (event, value) => {
     setSearchValue(value ? value.name : "");
+    navigate(`/weather?cityName=${value.name}`);
   };
   return (
-    <Container
-      maxWidth="xl"
+    <Box
       sx={{
-        p: 3,
+        height: "auto",
+        p: 1,
       }}
     >
       <CssBaseline />
@@ -58,46 +58,23 @@ export const Cities = () => {
             height: "100vh",
           }}
         >
-          <Autocomplete
-            value={searchValue}
-            onChange={selectHandler}
-            onInputChange={onChangeQuery}
-            filterOptions={(x) => x}
-            selectOnFocus
-            clearOnBlur
-            autoComplete
-            autoHighlight
-            handleHomeEndKeys
-            id="free-solo-with-text-demo"
-            loading={isLoading}
-            options={autocomplete || []}
-            getOptionLabel={(option) => {
-              // Value selected with enter, right from the input
-              if (typeof option === "string") {
-                return option;
-              }
-              // Add "xxx" option created dynamically
-              if (option.inputValue) {
-                return option.inputValue;
-              }
-              // Regular option
-              return option.name;
-            }}
-            renderOption={(props, option) => <li {...props}>{option.name}</li>}
-            sx={{ width: 300 }}
-            renderInput={(params) => (
-              <TextField {...params} label={t("searchInput")} />
-            )}
-          />
           <Box
             sx={{
               width: "21%",
             }}
           >
-            <Typography sx={{ mt: 6 }} variant="h6" component="div">
+            <Typography
+              sx={{ mt: 6, width: "max-content" }}
+              variant="h6"
+              component="div"
+            >
               {t("likesSitiTitle")}
             </Typography>
-            <List>
+            <List
+              sx={{
+                width: "300px",
+              }}
+            >
               <ListItem
                 sx={{
                   pl: 0,
@@ -123,6 +100,6 @@ export const Cities = () => {
           </Box>
         </Box>
       )}
-    </Container>
+    </Box>
   );
 };

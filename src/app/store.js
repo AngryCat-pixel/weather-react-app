@@ -2,7 +2,7 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/query/react';
 
 import authReducer from '../features/auth/authSlice';
-import { weatherAPI } from '../features/main/weatherAPI';
+import { weatherAPI } from '../features/weather/weatherAPI';
 import settingsReducer from '../features/profile/settingsSlice';
 
 const rootReducer = combineReducers({

@@ -5,10 +5,12 @@ import Login from '../../pages/LoginPage';
 import Profile from '../../pages/ProfilePage';
 import Registration from '../../pages/RegistrationPage';
 import Weather from '../../pages/WeatherPage';
+import Home from '../../pages/HomePage';
 import { ProtectRoute } from './protectRoute';
 
 export const Routenames = {
-  WEATHER: "/",
+  HOME: '/',
+  WEATHER: "/weather",
   REGISTRATION: "/registration",
   LOGIN: "/login",
   PROFILE: "/profile",
@@ -17,6 +19,14 @@ export const Routenames = {
 };
 
 export const routes = [
+  {
+    path: Routenames.HOME,
+    element: (
+      <ProtectRoute>
+        <Home />
+      </ProtectRoute>
+    ),
+  },
   {
     path: Routenames.REGISTRATION,
     element: <Registration />,
@@ -42,7 +52,7 @@ export const routes = [
     ),
   },
   {
-    path: Routenames.ANY,
+    path: Routenames.WEATHER,
     element: (
       <ProtectRoute>
         <Weather />
@@ -50,10 +60,10 @@ export const routes = [
     ),
   },
   {
-    path: Routenames.WEATHER,
+    path: Routenames.ANY,
     element: (
       <ProtectRoute>
-        <Weather />
+        <Home />
       </ProtectRoute>
     ),
   },
