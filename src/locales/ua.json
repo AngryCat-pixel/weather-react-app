@@ -3,8 +3,14 @@
         "name": "Ім'я",
         "lastName": "Фамілія"
     },
-    "errors": {
-        "unknown": "Сталася неочікувана помилка. Деталі в консолі."
+    "app": {
+        "loading": "Завантаження...",
+        "unknownError": "Сталася неочікувана помилка. Деталі в консолі.",
+        "sportErrorLoading": "Помилка під час завантаження спортивних подій.",
+        "forecastErrorLoading": "Помилка під час завантаження прогнозу.",
+        "cityErrorLoading": "Помилка під час завантаження міста.",
+        "toMain": "На головну",
+        "tryOneMore": "Спробуйте ще раз."
     },
     "auth": {
         "registration": "Реєстрація",
@@ -48,6 +54,24 @@
         "searchInput": "Введіть місто",
         "likesSitiTitle": "Збережені міста",
         "noOptions": "Місто не знайдено",
-        "saveEvents": "Збережені спортивні події"
+        "saveEvents": "Збережені спортивні події",
+        "currentWeatherHeader": "Поточна погода",
+        "humidity": "Вологість",
+        "cloud": "Хмарність",
+        "wind": "Вітер",
+        "directionOfTheWind": "Напрямок вітру",
+        "currentForecastHeader": "Прогноз на день",
+        "probability": "Ймовірність",
+        "hourlyForecast": "Прогноз по годинах",
+        "sportsEvent": "Спортивні події",
+        "football": "Футбол",
+        "cricket": "Крикет",
+        "golf": "Гольф",
+        "opponents": "Противники:",
+        "date": "Дата:",
+        "stadium": "Стадіон:",
+        "country": "Країна:",
+        "tournament": "Турнір:",
+        "noEvents": "Немає подій"
     }
 }

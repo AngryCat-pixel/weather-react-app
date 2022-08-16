@@ -1,0 +1,14 @@
+.currentContainer {
+    display: inline-block;
+    width: 80%;
+}
+
+.forecastContainer {
+    display: inline-block;
+}
+.wrap {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+}

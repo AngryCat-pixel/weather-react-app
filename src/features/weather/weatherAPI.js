@@ -39,5 +39,14 @@ export const weatherAPI = createApi({
         },
       }),
     }),
+    fetchSports: build.query({
+      query: ({ cityName }) => ({
+        url: `/sports.json?q=${cityName}`,
+        headers: {
+          "X-RapidAPI-Key": API_KEY,
+          "X-RapidAPI-Host": API_HOST,
+        },
+      }),
+    }),
   }),
 });

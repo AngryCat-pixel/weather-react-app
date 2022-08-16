@@ -1,0 +1,73 @@
+.container {
+    width: 90%;
+}
+
+.currentWeatherHeader {
+    text-align: center;
+}
+
+.currentWeatherStatus,
+.intervalContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    min-width: 200px;
+    min-height: 70px;
+}
+
+.currentWeatherStyles {
+    min-width: 200px;
+    min-height: 70px;
+    text-align: center;
+    line-height: 70px;
+    font-size: 22px;
+}
+
+
+.imgAndTextContainer {
+    display: flex;
+    align-items: center;
+}
+
+.upperSymbol {
+    vertical-align: top;
+}
+
+.currentWeatherContainer,
+.forecastWeatherContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.chanceContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.image>img {
+    width: 40px;
+}
+
+/* .chanceValueContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+} */
+
+.currentWeatherData {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.hourlyForecastContainer {
+    display: flex;
+    overflow-x: hidden;
+}
+
+/* minWidth: '150px',
+minHeight: '50px', */

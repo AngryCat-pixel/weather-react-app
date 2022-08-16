@@ -8,6 +8,7 @@ import { authorization } from "./features/auth/authSlice";
 import { findUserById } from "./features/auth/utils/findUserById";
 import { inicializeSettings } from "./features/profile/settingsSlice";
 import { findSettingsByUserId } from "./features/profile/utils/findSettingsByUserId";
+import { Menu } from "./features/menu/";
 
 function App() {
   const colorMode = useContext(ColorModeContext);
@@ -35,6 +36,7 @@ function App() {
         <div>Loading...</div>
       ) : (
         <Theme>
+          <Menu />
           <AppRouter />
         </Theme>
       )}

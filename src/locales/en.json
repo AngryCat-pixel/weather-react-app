@@ -1,53 +1,77 @@
 {
-  "user": {
-    "name": "Name",
-    "lastName": "Last Name"
-  },
-  "errors": {
-    "unknown": "An unexpected error has occurred. Details in the console."
-  },
-  "auth": {
-    "registration": "Sign up",
-    "name": "First Name",
-    "lastName": "Last Name",
-    "email": "Email Address",
-    "telephone": "Telephone Number",
-    "password": "Password",
-    "registrBtn": "Sign Up",
-    "login": "Already have an account? Sign in",
-    "signIn": "Sign In",
-    "signUp": "Don't have an account? Sign Up",
-    "fogotPass": "Forgot password?",
-    "loginBtn": "Sign In",
-    "incorrectlogin": "The password or email was entered incorrectly.",
-    "incorrectregister": "A user with this email address already exists.",
-    "confirm": "Enter the secret code sent to your email: {{email}} to activate your account.",
-    "confirmBtn": "Activate",
-    "changeEmail": "Change email",
-    "changeEmailTitle": "Enter your email",
-    "changeEmailBtn": "Change",
-    "incorrectCode": "The secret code you entered is incorrect.",
-    "codeLengthError": "The code must be 4 characters long.",
-    "codeFormatError": "The field must have from 2 to 20 characters (only letters in Ukrainian and English)",
-    "codeTelephoneError": "The field must contain 7 to 12 digits"
-  },
-  "profile": {
-    "back": "Back",
-    "title": "Profile",
-    "name": "First Name:",
-    "lastName": "Last Name:",
-    "email": "Email Address:",
-    "telephone": "Telephone Number:",
-    "password": "Password:",
-    "likeSiti": "Saved cities",
-    "logout": "Logout",
-    "lableTheme": "Theme",
-    "lableMetrics": "Metric system"
-  },
-  "weather": {
-    "searchInput": "Enter city",
-    "likesSitiTitle": "Saved cities",
-    "noOptions": "City not found",
-    "saveEvents": "Saved sports events"
-  }
+    "user": {
+        "name": "Name",
+        "lastName": "Last Name"
+    },
+    "app": {
+        "loading": "Loading...",
+        "unknownError": "An unexpected error has occurred. Details in the console.",
+        "sportErrorLoading": "Error loading sports events.",
+        "forecastErrorLoading": "Error loading weather forecast.",
+        "cityErrorLoading": "Error loading city.",
+        "toMain": "Back to main",
+        "tryOneMore": "Try one more time."
+    },
+    "auth": {
+        "registration": "Sign up",
+        "name": "First Name",
+        "lastName": "Last Name",
+        "email": "Email Address",
+        "telephone": "Telephone Number",
+        "password": "Password",
+        "registrBtn": "Sign Up",
+        "login": "Already have an account? Sign in",
+        "signIn": "Sign In",
+        "signUp": "Don't have an account? Sign Up",
+        "fogotPass": "Forgot password?",
+        "loginBtn": "Sign In",
+        "incorrectlogin": "The password or email was entered incorrectly.",
+        "incorrectregister": "A user with this email address already exists.",
+        "confirm": "Enter the secret code sent to your email: {{email}} to activate your account.",
+        "confirmBtn": "Activate",
+        "changeEmail": "Change email",
+        "changeEmailTitle": "Enter your email",
+        "changeEmailBtn": "Change",
+        "incorrectCode": "The secret code you entered is incorrect.",
+        "codeLengthError": "The code must be 4 characters long.",
+        "codeFormatError": "The field must have from 2 to 20 characters (only letters in Ukrainian and English)",
+        "codeTelephoneError": "The field must contain 7 to 12 digits"
+    },
+    "profile": {
+        "back": "Back",
+        "title": "Profile",
+        "name": "First Name:",
+        "lastName": "Last Name:",
+        "email": "Email Address:",
+        "telephone": "Telephone Number:",
+        "password": "Password:",
+        "likeSiti": "Saved cities",
+        "logout": "Logout",
+        "lableTheme": "Theme",
+        "lableMetrics": "Metric system"
+    },
+    "weather": {
+        "searchInput": "Enter city",
+        "likesSitiTitle": "Saved cities",
+        "noOptions": "City not found",
+        "saveEvents": "Saved sports events",
+        "currentWeatherHeader": "Current weather",
+        "humidity": "Humidity",
+        "cloud": "Cloudiness",
+        "wind": "Wind",
+        "directionOfTheWind": "Direction of the wind",
+        "currentForecastHeader": "Forecast for the day",
+        "probability": "Probability",
+        "hourlyForecast": "Hourly forecast",
+        "sportsEvent": "Sports events",
+        "football": "Football",
+        "cricket": "Cricket",
+        "golf": "Golf",
+        "opponents": "Opponents",
+        "date": "Date",
+        "stadium": "Stadium",
+        "country": "Country",
+        "tournament": "Tournament",
+        "noEvents": "No events"
+    }
 }
