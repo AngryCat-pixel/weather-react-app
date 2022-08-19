@@ -1,7 +1,3 @@
-# weather-react-app
- This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
- 
- 
 ##  Як користуватися:
 - Перейдіть на сторінку реєстрації
 - Введіть свої данні у вірному форматі
