@@ -2,6 +2,9 @@ export const Light = {
   palette: {
     mode: "light",
     type: "light",
+    action: {
+      selected: "#1cc8d4",
+    },
     primary: {
       main: "#1cc8d4",
       dark: "#1b8187",
@@ -16,7 +19,6 @@ export const Light = {
       secondary: "rgba(15,15,105,0.94)",
       primary: "rgba(0,44,135,0.87)",
     },
-    xaxaxa: "#ff0000",
     success: {
       main: "#9afff3",
     },

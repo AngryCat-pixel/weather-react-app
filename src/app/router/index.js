@@ -1,11 +1,11 @@
 import React from 'react';
 
 import Confirm from '../../pages/ConfirmPage';
+import Home from '../../pages/HomePage';
 import Login from '../../pages/LoginPage';
 import Profile from '../../pages/ProfilePage';
 import Registration from '../../pages/RegistrationPage';
 import Weather from '../../pages/WeatherPage';
-import Home from '../../pages/HomePage';
 import { ProtectRoute } from './protectRoute';
 
 export const Routenames = {

@@ -1,57 +1,86 @@
-import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
-import Box from "@mui/material/Box";
-import CssBaseline from "@mui/material/CssBaseline";
-import Divider from "@mui/material/Divider";
-import IconButton from "@mui/material/IconButton";
-import Link from "@mui/material/Link";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemText from "@mui/material/ListItemText";
-import Typography from "@mui/material/Typography";
-import React from "react";
+import { Box, Button, CssBaseline, Typography } from "@mui/material";
+import { fontGrid } from "@mui/material/styles/cssUtils";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useDispatch, useSelector } from "react-redux";
+import { removeSportEvent, selectFavorites } from "../favoritesSlice";
+import { useSyncFavorites } from "../utils";
+import EventCard from "./EventCard.component";
 
 export const SportEvents = () => {
   const { t } = useTranslation(["weather", "errors"]);
+  const [selectedSportName, setSelectedSportName] = useState("");
+  const favorites = useSelector(selectFavorites);
+  const dispatch = useDispatch();
+  useSyncFavorites(favorites);
+  const removeSportEventHandler = (sportName, event) => {
+    dispatch(removeSportEvent({ sportName, id: event.id }));
+  };
+  const clickHandler = (sportName) => {
+    if (selectedSportName === sportName) {
+      setSelectedSportName("");
+    } else {
+      setSelectedSportName(sportName);
+    }
+  };
   return (
     <Box
       sx={{
-        height: "auto",
         p: 1,
       }}
     >
       <CssBaseline />
       <Box>
-        <Typography sx={{ mt: 6 }} variant="h6" component="div">
+        <Typography
+          sx={{ mt: 6, textAlign: "center" }}
+          variant="h6"
+          component="div"
+        >
           {t("saveEvents")}
         </Typography>
-        <List
+        <Box
           sx={{
-            width: "300px",
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "flex-start",
+            justifyContent: "space-between",
           }}
         >
-          <ListItem
-            sx={{
-              pl: 0,
-            }}
-            secondaryAction={
-              <IconButton edge="end" aria-label="delete">
-                <DeleteForeverOutlinedIcon />
-              </IconButton>
-            }
-          >
-            <Link href="#">
-              <ListItemText primary="Sport event" />
-            </Link>
-          </ListItem>
-          <Divider
-            variant="inset"
-            component="div"
-            sx={{
-              margin: 0,
-            }}
-          />
-        </List>
+          {Object.keys(favorites.sports).map((sportName) => (
+            <Box
+              key={sportName + "Container"}
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                width: "200px",
+              }}
+            >
+              <Button
+                onClick={() => clickHandler(sportName)}
+                variant="text"
+                color={
+                  selectedSportName === sportName ? "secondary" : "primary"
+                }
+                sx={{
+                  cursor: "pointer",
+                }}
+              >
+                {sportName}
+              </Button>
+              {selectedSportName === sportName &&
+                favorites.sports[sportName].map((event) => (
+                  <EventCard
+                    key={event.id}
+                    event={event}
+                    removeSportEventHandler={() =>
+                      removeSportEventHandler(sportName, event)
+                    }
+                  />
+                ))}
+            </Box>
+          ))}
+        </Box>
       </Box>
     </Box>
   );

@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-import { Registration } from '../features/auth';
+import { Registration } from "../features/auth";
 
 const RegistrationPage = () => {
   return <Registration />;

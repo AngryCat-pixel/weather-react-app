@@ -1,2 +1,4 @@
-export { Weather } from "./Weather";
-export { weatherAPI } from "./weatherAPI";
+import Weather from './Weather.component';
+export { weatherAPI } from './weatherAPI';
+
+export { Weather };

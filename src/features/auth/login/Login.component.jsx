@@ -1,20 +1,25 @@
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Container from "@mui/material/Container";
-import CssBaseline from "@mui/material/CssBaseline";
-import Grid from "@mui/material/Grid";
-import Link from "@mui/material/Link";
-import TextField from "@mui/material/TextField";
-import Typography from "@mui/material/Typography";
-import React, { useEffect, useState } from "react";
+import {
+  Box,
+  Button,
+  Container,
+  CssBaseline,
+  Grid,
+  Link,
+  TextField,
+  Typography,
+} from "@mui/material";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 
+import { inicializeFavorites } from "../../home/favoritesSlice";
+import { findFavoritesByUserId } from "../../home/utils/findFavoritesByUserId";
 import { inicializeSettings } from "../../profile/settingsSlice";
 import { findSettingsByUserId } from "../../profile/utils";
 import { authorization, selectAuth } from "../authSlice";
 import { createSession } from "../utils/createSession";
+import { serializeEmail } from "../utils";
 import { findUserByEmail } from "../utils/findUserByEmail";
 
 export const Login = () => {
@@ -47,30 +52,23 @@ export const Login = () => {
       email: data.get("email"),
       password: data.get("password"),
     };
-    user.email = user.email.toLowerCase();
-    user.email = `${user.email.match(/.*@/)[0].replace(/\./g, "")}${
-      user.email.match(/@(.*)/)[1]
-    }`;
+    user.email = serializeEmail(user.email);
     // validate
     // checkUserAlready
     const foundUser = findUserByEmail(user.email);
     if (!foundUser) {
-      // отобразить сообщение о том что юзер не найден
       setErrors({ email: { error: true, msg: t("incorrectlogin") } });
       return;
     } else if (foundUser.password !== user.password) {
-      // отобразить сообщение о том что пароль не верный
       setErrors({ email: { error: true, msg: t("incorrectlogin") } });
       return;
     }
-    // находит настройки пользователя в localstorage
     const foundSettings = findSettingsByUserId(user.id);
-    // создает сессию пользователя в localstorage
+    const foundFavorites = findFavoritesByUserId(user.id);
     createSession(foundUser.id);
-    // авторизует пользователя в приложении
     dispatch(authorization(foundUser));
     dispatch(inicializeSettings(foundSettings));
-    // перенаправляет на главную страницу
+    dispatch(inicializeFavorites(foundFavorites));
     navigate("/");
   };
 

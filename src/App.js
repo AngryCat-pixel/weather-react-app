@@ -1,19 +1,19 @@
-import { useTheme } from "@mui/material/styles";
-import React, { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
 import AppRouter from "./app/router/app-router";
-import Theme, { ColorModeContext } from "./app/theme/theme.component";
+import Theme from "./app/theme/theme.component";
 import { authorization } from "./features/auth/authSlice";
 import { findUserById } from "./features/auth/utils/findUserById";
+import { inicializeFavorites } from "./features/home/favoritesSlice";
+import { findFavoritesByUserId } from "./features/home/utils/findFavoritesByUserId";
+import { Menu } from "./features/menu/";
 import { inicializeSettings } from "./features/profile/settingsSlice";
 import { findSettingsByUserId } from "./features/profile/utils/findSettingsByUserId";
-import { Menu } from "./features/menu/";
+import { Background } from "./features/background/Background.component";
 
 function App() {
-  const colorMode = useContext(ColorModeContext);
   const dispatch = useDispatch();
-  const theme = useTheme();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -23,9 +23,8 @@ function App() {
       dispatch(authorization(user));
       const settings = findSettingsByUserId(session);
       dispatch(inicializeSettings(settings));
-      if (theme.palette.mode !== settings.theme) {
-        colorMode.toggleColorMode();
-      }
+      const favorites = findFavoritesByUserId(session);
+      dispatch(inicializeFavorites(favorites));
     }
     setLoading(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -36,8 +35,12 @@ function App() {
         <div>Loading...</div>
       ) : (
         <Theme>
-          <Menu />
-          <AppRouter />
+          <Background>
+            <>
+              <Menu />
+              <AppRouter />
+            </>
+          </Background>
         </Theme>
       )}
     </div>

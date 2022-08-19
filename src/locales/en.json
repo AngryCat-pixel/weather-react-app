@@ -38,7 +38,7 @@
         "codeTelephoneError": "The field must contain 7 to 12 digits"
     },
     "profile": {
-        "back": "Back",
+        "toMain": "Home",
         "title": "Profile",
         "name": "First Name:",
         "lastName": "Last Name:",

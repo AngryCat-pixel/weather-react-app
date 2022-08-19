@@ -1,11 +1,8 @@
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
-
-import { selectSettings } from "../../features/profile/settingsSlice";
+import { useState, useMemo, createContext } from "react";
 import { Dark, Light } from "./config";
 
-export const ColorModeContext = React.createContext({
+export const ColorModeContext = createContext({
   toggleColorMode: () => {},
 });
 
@@ -14,10 +11,9 @@ const Theme = ({ children }) => {
     ...(mode === "light" ? Light : Dark),
   });
 
-  const [mode, setMode] = React.useState("light");
-  const colorMode = React.useMemo(
+  const [mode, setMode] = useState(localStorage.getItem("theme") || "light");
+  const colorMode = useMemo(
     () => ({
-      // The dark mode switch would invoke this method
       toggleColorMode: () => {
         setMode((prevMode) => (prevMode === "light" ? "dark" : "light"));
       },
@@ -25,13 +21,7 @@ const Theme = ({ children }) => {
     []
   );
 
-  const settings = useSelector(selectSettings);
-  const theme = React.useMemo(() => createTheme(getDesignTokens(mode)), [mode]);
-  useEffect(() => {
-    if (theme.palette.mode !== settings.theme) {
-      colorMode.toggleColorMode();
-    }
-  }, [settings.theme, colorMode, theme.palette.mode]);
+  const theme = useMemo(() => createTheme(getDesignTokens(mode)), [mode]);
 
   return (
     <ColorModeContext.Provider value={colorMode}>

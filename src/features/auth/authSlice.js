@@ -1,36 +1,35 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 export const defaultUser = {
-    user: {
-        email: '',
-        phone: '',
-        name: '',
-        lastName: '',
-        password: '',
-        verificationCode: '',
-        virificated: false,
-        id: null,
-    },
-    authorized: false,
+  user: {
+    email: "",
+    phone: "",
+    name: "",
+    lastName: "",
+    password: "",
+    verificationCode: "",
+    virificated: false,
+    id: null,
+  },
+  authorized: false,
 };
 
 export const authSlice = createSlice({
-    name: 'auth',
-    initialState: defaultUser,
-    // The `reducers` field lets us define reducers and generate associated actions
-    reducers: {
-        authorization: (state, action) => {
-            return { user: { ...action.payload }, authorized: true };
-        },
-        updateUserData: (state, action) => {
-            return { ...state, user: { ...action.payload } };
-        },
-        logout: (state) => {
-            return {
-                ...defaultUser,
-            };
-        },
+  name: "auth",
+  initialState: defaultUser,
+  reducers: {
+    authorization: (state, action) => {
+      return { user: { ...action.payload }, authorized: true };
     },
+    updateUserData: (state, action) => {
+      return { ...state, user: { ...action.payload } };
+    },
+    logout: (state) => {
+      return {
+        ...defaultUser,
+      };
+    },
+  },
 });
 
 export const { authorization, logout, updateUserData } = authSlice.actions;

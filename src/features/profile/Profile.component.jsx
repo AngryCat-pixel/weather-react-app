@@ -1,18 +1,18 @@
-import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Container from "@mui/material/Container";
-import CssBaseline from "@mui/material/CssBaseline";
-import Divider from "@mui/material/Divider";
-import FormControl from "@mui/material/FormControl";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import InputLabel from "@mui/material/InputLabel";
-import Stack from "@mui/material/Stack";
-import { styled } from "@mui/material/styles";
-import Switch from "@mui/material/Switch";
-import TextField from "@mui/material/TextField";
-import Typography from "@mui/material/Typography";
-import React, { useState } from "react";
+import {
+  Box,
+  Button,
+  Container,
+  CssBaseline,
+  Divider,
+  FormControl,
+  FormControlLabel,
+  InputLabel,
+  Switch,
+  TextField,
+  Typography,
+} from "@mui/material";
+import { styled, useTheme } from "@mui/material/styles";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -36,7 +36,7 @@ const Profile = () => {
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
-    minWidth: "490px",
+    minWidth: "500px",
     alignItems: "center",
     marginBottom: "10px",
   };
@@ -76,12 +76,6 @@ const Profile = () => {
       );
     }
   };
-
-  const backHandler = () => {
-    let from = location.state?.from?.pathname || "/";
-    navigate(from, { replace: true });
-  };
-
   const handleUpdateSetting = (event) => {
     const name = event.target.name;
     let value = false;
@@ -195,28 +189,17 @@ const Profile = () => {
       borderRadius: 20 / 2,
     },
   }));
-
+  const theme = useTheme();
   return (
-    <Container component="div" maxWidth="sx">
+    <Container
+      maxWidth="xl"
+      sx={{
+        background: theme.palette.mode === "light" ? "" : "rgba(0, 0, 0, 0.44)",
+      }}
+    >
       <CssBaseline />
       <Box>
-        <Stack direction="row" spacing={2}>
-          <Button
-            color="primary"
-            sx={{
-              marginTop: 3,
-              marginBottom: 3,
-              fontWeight: "bold",
-            }}
-            variant="outlined"
-            startIcon={<KeyboardArrowLeftIcon />}
-            onClick={backHandler}
-          >
-            {t("back")}
-          </Button>
-        </Stack>
-
-        <Box sx={{ bgcolor: "#e6e6e680", height: "auto" }}>
+        <Box sx={{ height: "auto" }}>
           <Typography
             variant="h4"
             component="h4"
@@ -241,7 +224,7 @@ const Profile = () => {
             sx={{
               display: "flex",
               flexDirection: "row",
-              justifyContent: "space-evenly",
+              justifyContent: "space-between",
             }}
           >
             <Box
@@ -258,7 +241,6 @@ const Profile = () => {
                   {t("name")}
                 </InputLabel>
                 <TextField
-                  variant="filled"
                   color="primary"
                   id="name-input"
                   focused
@@ -280,7 +262,6 @@ const Profile = () => {
                   {t("lastName")}
                 </InputLabel>
                 <TextField
-                  variant="filled"
                   color="primary"
                   id="lastName-input"
                   focused
@@ -293,28 +274,10 @@ const Profile = () => {
                 />
               </FormControl>
               <FormControl variant="standard" sx={styleForm}>
-                <InputLabel shrink htmlFor="email-input" sx={styleLable}>
-                  {t("email")}
-                </InputLabel>
-                <TextField
-                  variant="filled"
-                  color="primary"
-                  id="email-input"
-                  value={newUser.email}
-                  name="email"
-                  onChange={handleUpdateUser}
-                  focused
-                  sx={{
-                    width: "330px",
-                  }}
-                />
-              </FormControl>
-              <FormControl variant="standard" sx={styleForm}>
                 <InputLabel shrink htmlFor="telephone-input" sx={styleLable}>
                   {t("telephone")}
                 </InputLabel>
                 <TextField
-                  variant="filled"
                   color="primary"
                   id="telephone-input"
                   focused
@@ -331,7 +294,6 @@ const Profile = () => {
                   {t("password")}
                 </InputLabel>
                 <TextField
-                  variant="filled"
                   color="primary"
                   id="password-input"
                   value={newUser.password}
@@ -344,10 +306,12 @@ const Profile = () => {
                 />
               </FormControl>
               <Button
+                color="primary"
                 variant="outlined"
                 sx={{
                   fontWeight: "bold",
                   marginTop: 3,
+                  border: "2px solid",
                 }}
                 onClick={() => navigate("/")}
               >
@@ -371,17 +335,6 @@ const Profile = () => {
                 }}
               >
                 <FormControlLabel
-                  label={t("lableTheme")}
-                  control={
-                    <ThemeUISwitch
-                      name="theme"
-                      onChange={handleUpdateSetting}
-                      sx={{ m: 1 }}
-                      checked={newSettings.theme === "dark" ? true : false}
-                    />
-                  }
-                />
-                <FormControlLabel
                   control={
                     <MetricsUiSwitch
                       name="metricSystem"
@@ -397,10 +350,12 @@ const Profile = () => {
               </Box>
 
               <Button
+                color="primary"
                 variant="outlined"
                 sx={{
                   fontWeight: "bold",
                   marginBottom: 3,
+                  border: "2px solid",
                 }}
                 onClick={logoutHandler}
               >

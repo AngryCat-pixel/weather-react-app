@@ -1,0 +1,15 @@
+.bgc {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    height: 100%;
+}
+
+.light {
+    background-image: url(./img/white-cloud.jpg);
+}
+
+.dark {
+    background-image: url(./img/dark-cloud.jpg);
+}

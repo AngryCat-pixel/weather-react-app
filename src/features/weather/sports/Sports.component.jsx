@@ -1,12 +1,14 @@
-import React from "react";
-import { Typography } from "@mui/material";
+import { Container, Typography } from "@mui/material";
 import { useTranslation } from "react-i18next";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addSportEvent,
+  removeSportEvent,
+  selectFavorites
+} from "../../home/favoritesSlice";
 import { weatherAPI } from "../weatherAPI";
-import Container from "@mui/material/Container";
-import { Paper } from "@mui/material";
+import EventCard from "./EventCard.component";
 import classes from "./sports.module.css";
-import { IconButton } from "@mui/material";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
 const Sports = ({ cityName }) => {
   const { t } = useTranslation(["weather", "app"]);
@@ -15,6 +17,30 @@ const Sports = ({ cityName }) => {
     isLoading: sportsDataIsLoading,
     error: sportsDataError,
   } = weatherAPI.useFetchSportsQuery({ cityName });
+  const dispatch = useDispatch();
+  const favorites = useSelector(selectFavorites);
+  const checkIsFavorite = (sportName, id) => {
+    return favorites.sports[sportName].find((event) =>
+      event.id === id ? true : false
+    );
+  };
+  const toggleFavorite = (sportName, event) => {
+    if (checkIsFavorite(sportName, `${event.match}${event.start}`)) {
+      dispatch(
+        removeSportEvent({
+          sportName,
+          id: `${event.match}${event.start}`,
+        })
+      );
+    } else {
+      dispatch(
+        addSportEvent({
+          sportName,
+          event: { ...event, id: `${event.match}${event.start}` },
+        })
+      );
+    }
+  };
   return (
     <div>
       {sportsDataIsLoading && <div>{t("loading", { ns: "app" })}</div>}
@@ -52,42 +78,13 @@ const Sports = ({ cityName }) => {
             </Typography>
             {sportsData && sportsData.football.length > 0 ? (
               sportsData.football.map((event, index) => (
-                <Paper
-                  key={event.match}
-                  elevation={24}
-                  sx={{
-                    display: "flex",
-                    flexDirection: "row-reverse",
-                    alignItems: "flex-start",
-                    justifyContent: "space-between",
-                    boxShadow: "-20px 0px 20px 0px #00000033",
-                    mt: 1,
-                    minWidth: "400px",
-                    maxWidth: "500px",
-                    p: 1.5,
-                  }}
-                >
-                  <IconButton aria-label="delete" size="large">
-                    <FavoriteBorderIcon />
-                  </IconButton>
-                  <div key={index}>
-                    <Typography sx={{ fontWeight: "bold" }}>
-                      {event.match}
-                    </Typography>
-                    <Typography>
-                      {t("date")} {event.start}
-                    </Typography>
-                    <Typography>
-                      {t("stadium")} {event.stadium}
-                    </Typography>
-                    <Typography>
-                      {t("country")} {event.country}
-                    </Typography>
-                    <Typography>
-                      {t("tournament")} {event.tournament}
-                    </Typography>
-                  </div>
-                </Paper>
+                <EventCard
+                  key={`${event.match}${event.start}`}
+                  event={event}
+                  toggleFavorite={toggleFavorite}
+                  checkIsFavorite={checkIsFavorite}
+                  sportName="football"
+                />
               ))
             ) : (
               <div>{t("noEvents")}</div>
@@ -99,42 +96,13 @@ const Sports = ({ cityName }) => {
             </Typography>
             {sportsData && sportsData.cricket.length > 0 ? (
               sportsData.cricket.map((event, index) => (
-                <Paper
-                  key={event.match}
-                  elevation={24}
-                  sx={{
-                    display: "flex",
-                    flexDirection: "row-reverse",
-                    alignItems: "flex-start",
-                    justifyContent: "space-between",
-                    boxShadow: "-20px 0px 20px 0px #00000033",
-                    mt: 1,
-                    minWidth: "400px",
-                    maxWidth: "500px",
-                    p: 1.5,
-                  }}
-                >
-                  <IconButton aria-label="delete" size="large">
-                    <FavoriteBorderIcon />
-                  </IconButton>
-                  <div key={index}>
-                    <Typography sx={{ fontWeight: "bold" }}>
-                      {event.match}
-                    </Typography>
-                    <Typography>
-                      {t("date")} {event.start}
-                    </Typography>
-                    <Typography>
-                      {t("stadium")} {event.stadium}
-                    </Typography>
-                    <Typography>
-                      {t("country")} {event.country}
-                    </Typography>
-                    <Typography>
-                      {t("tournament")} {event.tournament}
-                    </Typography>
-                  </div>
-                </Paper>
+                <EventCard
+                  key={`${event.match}${event.start}`}
+                  event={event}
+                  toggleFavorite={toggleFavorite}
+                  checkIsFavorite={checkIsFavorite}
+                  sportName="cricket"
+                />
               ))
             ) : (
               <div>{t("noEvents")}</div>
@@ -146,42 +114,13 @@ const Sports = ({ cityName }) => {
             </Typography>
             {sportsData && sportsData.golf.length > 0 ? (
               sportsData.golf.map((event, index) => (
-                <Paper
-                  key={event.match}
-                  elevation={24}
-                  sx={{
-                    display: "flex",
-                    flexDirection: "row-reverse",
-                    alignItems: "flex-start",
-                    justifyContent: "space-between",
-                    boxShadow: "-20px 0px 20px 0px #00000033",
-                    mt: 1,
-                    minWidth: "400px",
-                    maxWidth: "500px",
-                    p: 1.5,
-                  }}
-                >
-                  <IconButton aria-label="delete" size="large">
-                    <FavoriteBorderIcon />
-                  </IconButton>
-                  <div key={index}>
-                    <Typography sx={{ fontWeight: "bold" }}>
-                      {event.match}
-                    </Typography>
-                    <Typography>
-                      {t("date")} {event.start}
-                    </Typography>
-                    <Typography>
-                      {t("stadium")} {event.stadium}
-                    </Typography>
-                    <Typography>
-                      {t("country")} {event.country}
-                    </Typography>
-                    <Typography>
-                      {t("tournament")} {event.tournament}
-                    </Typography>
-                  </div>
-                </Paper>
+                <EventCard
+                  key={`${event.match}${event.start}`}
+                  event={event}
+                  toggleFavorite={toggleFavorite}
+                  checkIsFavorite={checkIsFavorite}
+                  sportName="golf"
+                />
               ))
             ) : (
               <div>{t("noEvents")}</div>

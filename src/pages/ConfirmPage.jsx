@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-import { Confirm } from '../features/auth';
+import { Confirm } from "../features/auth";
 
 const ConfirmPage = () => {
   return <Confirm />;

@@ -1,11 +1,11 @@
-import React from "react";
 import TextField from "@mui/material/TextField";
 import { DatePicker as MUIDatePicker } from "@mui/x-date-pickers";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import moment from "moment";
-export default function DatePicker({ selectDate }) {
-  const [value, setValue] = React.useState(null);
+import React from "react";
+export default function DatePicker({ selectDate, selectedDate }) {
+  const [value, setValue] = React.useState(moment(selectedDate));
   return (
     <LocalizationProvider dateAdapter={AdapterMoment}>
       <MUIDatePicker

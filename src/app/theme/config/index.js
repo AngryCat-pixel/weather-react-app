@@ -3,4 +3,4 @@ import { Light } from './light';
 
 
 
-export {Dark, Light}
+export { Dark, Light };

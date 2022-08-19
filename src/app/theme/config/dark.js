@@ -2,6 +2,9 @@ export const Dark = {
   palette: {
     mode: "dark",
     type: "dark",
+    action: {
+      selected: "#ffffff",
+    },
     primary: {
       main: "#1cc8d4",
       dark: "#1b8187",

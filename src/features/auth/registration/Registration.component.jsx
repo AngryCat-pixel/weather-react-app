@@ -1,34 +1,36 @@
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Container from '@mui/material/Container';
-import CssBaseline from '@mui/material/CssBaseline';
-import Grid from '@mui/material/Grid';
-import Link from '@mui/material/Link';
-import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
-import React, { useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { v4 as uuid } from 'uuid';
+import {
+  Box,
+  Button,
+  Container,
+  CssBaseline,
+  Grid,
+  Link,
+  TextField,
+  Typography,
+} from "@mui/material";
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { v4 as uuid } from "uuid";
 
-import { defaultSettings, inicializeSettings, selectSettings } from '../../profile/settingsSlice';
-import { saveSettings } from '../../profile/utils';
-import { createSession, saveUser, serializeEmail } from '../utils';
-import { findUserByEmail } from '../utils/findUserByEmail';
-import { authorization } from './../authSlice';
+import {
+  defaultFavorites,
+  inicializeFavorites,
+} from "../../home/favoritesSlice";
+import { saveFavorites } from "../../home/utils";
+import {
+  defaultSettings,
+  inicializeSettings,
+} from "../../profile/settingsSlice";
+import { saveSettings } from "../../profile/utils";
+import { createSession, saveUser, serializeEmail } from "../utils";
+import { findUserByEmail } from "../utils/findUserByEmail";
+import { authorization } from "./../authSlice";
 
 export const Registration = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const settings = useSelector(selectSettings);
-
-  useEffect(() => {
-    if (settings["userId"]) {
-      saveSettings(settings);
-      navigate("/");
-    }
-  }, [settings, navigate]);
 
   const { t } = useTranslation("auth");
   const noErrors = {
@@ -58,17 +60,14 @@ export const Registration = () => {
       return;
     }
 
-    // генерирует уникальный идентификатор
     user.id = uuid();
-    // сохраняет пользователя и настройки в localstore
     saveUser(user);
     saveSettings({ ...defaultSettings, userId: user.id });
-    // добавляет в глобальный стор пользователя и настройки
+    saveFavorites({ ...defaultFavorites, userId: user.id });
     dispatch(authorization(user));
     dispatch(inicializeSettings({ userId: user.id }));
-    // создает сессию в localstore
+    dispatch(inicializeFavorites({ userId: user.id }));
     createSession(user.id);
-    // перенаправляет на главную страницу
     navigate("/");
   };
 
