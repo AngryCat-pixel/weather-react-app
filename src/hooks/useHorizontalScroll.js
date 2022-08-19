@@ -5,6 +5,8 @@ export function useHorizontalScroll() {
   useEffect(() => {
     const el = elRef.current;
     if (el) {
+      console.log('el',el)
+      
       const onWheel = (e) => {
         if (e.deltaY === 0) return;
         e.preventDefault();
@@ -15,6 +17,7 @@ export function useHorizontalScroll() {
       el.addEventListener("wheel", onWheel);
       return () => el.removeEventListener("wheel", onWheel);
     }
-  }, []);
+    console.log('ne el',el)
+  }, [elRef.current]);
   return elRef;
 }

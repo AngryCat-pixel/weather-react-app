@@ -9,7 +9,7 @@ export default function DatePicker({ selectDate, selectedDate }) {
   return (
     <LocalizationProvider dateAdapter={AdapterMoment}>
       <MUIDatePicker
-        label="Выберите дату"
+        label="Choose a date"
         minDate={moment().subtract(7, "days")}
         maxDate={moment().add(10, "day")}
         disableHighlightToday

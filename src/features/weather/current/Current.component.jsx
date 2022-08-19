@@ -32,9 +32,10 @@ const Current = ({ cityName, settings, forecastWeatherData }) => {
           <button>{t("tryOneMore", { ns: "app" })}</button>
         </div>
       )}
-      {currentWeatherData && (
-        <>
-          <div className={classes.currentWeatherData}>
+
+      <>
+        <div className={classes.currentWeatherData}>
+          {currentWeatherData && (
             <div className={classes.currentWeatherContainer}>
               <Typography
                 variant="h5"
@@ -65,7 +66,10 @@ const Current = ({ cityName, settings, forecastWeatherData }) => {
                     >
                       {currentWeatherData.current.condition.text}
                     </Typography>
-                    <img src={currentWeatherData.current.condition.icon} alt="condition" />
+                    <img
+                      src={currentWeatherData.current.condition.icon}
+                      alt="condition"
+                    />
                   </div>
                   <Divider orientation="vertical" flexItem />
                   <div className={classes.currentWeatherStyles}>
@@ -167,6 +171,8 @@ const Current = ({ cityName, settings, forecastWeatherData }) => {
                 </Box>
               </Box>
             </div>
+          )}
+          {forecastWeatherData && (
             <div className={classes.forecastWeatherContainer}>
               <Typography
                 variant="h5"
@@ -338,7 +344,9 @@ const Current = ({ cityName, settings, forecastWeatherData }) => {
                 </Box>
               </Box>
             </div>
-          </div>
+          )}
+        </div>
+        {forecastWeatherData && (
           <div>
             <Typography
               variant="h5"
@@ -398,8 +406,8 @@ const Current = ({ cityName, settings, forecastWeatherData }) => {
               )}
             </div>
           </div>
-        </>
-      )}
+        )}
+      </>
     </div>
   );
 };

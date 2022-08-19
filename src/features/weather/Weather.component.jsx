@@ -91,20 +91,20 @@ const Weather = () => {
   let [selectedDate, setSelectedDate] = useState(moment());
   useEffect(() => {
     if (selectedDate && selectedDate.isBefore(moment(), "day")) {
-      selectedDate = selectedDate.format("YYYY-MM-DD");
-      if (selectedDate === historyDate) {
+      let formatSelectedDate = selectedDate.format("YYYY-MM-DD");
+      if (formatSelectedDate === historyDate) {
         setRenderWeatherData(historyWeatherData);
       }
-      setHistoryDate(selectedDate);
-      searchParams.set("historyDate", selectedDate);
+      setHistoryDate(formatSelectedDate);
+      searchParams.set("historyDate", formatSelectedDate);
       searchParams.delete("forecastDate");
     } else if (selectedDate) {
-      selectedDate = selectedDate.format("YYYY-MM-DD");
-      if (selectedDate === forecastDate) {
+      let formatSelectedDate = selectedDate.format("YYYY-MM-DD");
+      if (formatSelectedDate === forecastDate) {
         setRenderWeatherData(cityData);
       }
-      setForecastDate(selectedDate);
-      searchParams.set("forecastDate", selectedDate);
+      setForecastDate(formatSelectedDate);
+      searchParams.set("forecastDate", formatSelectedDate);
       searchParams.delete("historyDate");
     }
     setSearchParams(searchParams);
