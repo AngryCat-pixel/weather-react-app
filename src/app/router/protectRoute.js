@@ -11,7 +11,9 @@ export function ProtectRoute({ children }) {
     if (!auth) {
         return <Navigate to="/login" state={{ from: location }} replace />;
     } else if (!verified && children.type.name !== 'ConfirmPage') {
+        console.log("check check")
         return <Navigate to="/confirm" state={{ from: location }} replace />;
     }
+    console.log("children")
     return children;
 }
