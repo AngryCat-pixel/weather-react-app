@@ -18,7 +18,6 @@ import { findUserByEmail } from "../utils/findUserByEmail";
 import { selectUser } from "./../authSlice";
 
 export const Confirm = () => {
-  console.log("Confirm")
   const navigate = useNavigate();
   const { t } = useTranslation("auth");
   const settings = useSelector(selectSettings);
